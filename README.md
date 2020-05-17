@@ -1,0 +1,1 @@
+# bamboo-github-status-plugin
