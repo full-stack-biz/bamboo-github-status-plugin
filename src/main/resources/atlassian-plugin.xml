@@ -1,0 +1,33 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="github-status"/>
+    
+    <!-- add our web resources -->
+    <web-resource key="github-status-resources" name="github-status Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        
+        <resource type="download" name="github-status.css" location="/css/github-status.css"/>
+        <resource type="download" name="github-status.js" location="/js/github-status.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>github-status</context>
+    </web-resource>
+    
+    <preChainAction key="tools.fullstackbiz.webhooks.listeners.chain.pre" class="tools.fullstackbiz.bamboo.github.status.action.PreBuildAction" />
+    <postChainAction key="tools.fullstackbiz.webhooks.listeners.chain.post" class="tools.fullstackbiz.bamboo.github.status.action.PostBuildAction" />
+
+<!--    <preStageAction key="tools.fullstackbiz.github-status.listeners.pre" class="tools.fullstackbiz.bamboo.github.status.action.GitHubStatusPreStage" />-->
+    <postStageAction key="tools.fullstackbiz.github-status.listeners.stage.post" class="tools.fullstackbiz.bamboo.github.status.action.GitHubStatusPostStage" />
+
+    <additionalBuildConfigurationPlugin key="tools.fullstackbiz.github-status.config.plan" class="tools.fullstackbiz.bamboo.github.status.build.config.Configuration">
+        <resource type="freemarker" name="edit" location="templates/tools/fullstackbiz/github-status/edit.ftl" />
+    </additionalBuildConfigurationPlugin>
+</atlassian-plugin>
