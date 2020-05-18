@@ -14,7 +14,7 @@
     </organization>
 
     <name>github-status</name>
-    <description>This is the tools.fullstack.bamboo:github-status plugin for Atlassian Bamboo.</description>
+    <description>This is the Github Status plugin for Atlassian Bamboo.</description>
     <packaging>atlassian-plugin</packaging>
 
     <properties>
