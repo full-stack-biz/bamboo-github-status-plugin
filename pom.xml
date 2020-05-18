@@ -45,7 +45,7 @@
             <scope>compile</scope>
         </dependency>
 
-   <!-- https://mvnrepository.com/artifact/com.atlassian.templaterenderer/atlassian-template-renderer -->
+        <!-- https://mvnrepository.com/artifact/com.atlassian.templaterenderer/atlassian-template-renderer -->
         <dependency>
             <groupId>com.atlassian.templaterenderer</groupId>
             <artifactId>atlassian-template-renderer</artifactId>
@@ -95,7 +95,7 @@
             <version>${bamboo.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
