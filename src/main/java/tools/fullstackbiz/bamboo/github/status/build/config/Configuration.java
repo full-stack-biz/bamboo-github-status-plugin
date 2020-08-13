@@ -4,6 +4,7 @@ import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.plan.cache.ImmutablePlan;
 import com.atlassian.bamboo.plan.configuration.MiscellaneousPlanConfigurationPlugin;
+import com.atlassian.bamboo.specs.api.exceptions.PropertiesValidationException;
 import com.atlassian.bamboo.template.TemplateRenderer;
 import com.atlassian.bamboo.v2.build.BaseBuildConfigurationAwarePlugin;
 import com.atlassian.bamboo.v2.build.ImportExportAwarePlugin;
@@ -32,7 +33,16 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
     @NotNull
     @Override
     public Settings toSpecsEntity(HierarchicalConfiguration buildConfiguration) {
-        return new Settings(buildConfiguration.getString(REPOSITORIES_KEY));
+        GithubStatusBuildConfiguration config = GithubStatusBuildConfiguration.from((BuildConfiguration) buildConfiguration);
+        return new Settings(config.getRepositories(plan));
+    }
+
+    @Override
+    public void addToBuildConfiguration(GithubStatusSettings specsProperties,
+                                        @NotNull HierarchicalConfiguration buildConfiguration) {
+        specsProperties.validate();
+        GithubStatusBuildConfiguration config = GithubStatusBuildConfiguration.from((BuildConfiguration) buildConfiguration);
+        buildConfiguration.addConfiguration(config);
     }
 
     public Configuration(@ComponentImport(value = "TemplateRenderer") TemplateRenderer templateRenderer) {
