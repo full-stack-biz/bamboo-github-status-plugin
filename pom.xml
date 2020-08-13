@@ -18,9 +18,9 @@
     <packaging>atlassian-plugin</packaging>
 
     <properties>
-        <bamboo.version>7.0.3</bamboo.version>
-        <bamboo.data.version>7.0.3</bamboo.data.version>
-        <amps.version>8.0.4</amps.version>
+        <bamboo.version>7.1.1</bamboo.version>
+        <bamboo.data.version>7.1.1</bamboo.data.version>
+        <amps.version>8.1.1</amps.version>
         <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
         <atlassian.spring.scanner.version>2.2.0</atlassian.spring.scanner.version>
         <!-- This property ensures consistency between the key in atlassian-plugin.xml and the OSGi bundle's key. -->
@@ -41,8 +41,22 @@
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>github-api</artifactId>
-            <version>1.111</version>
+            <version>1.116</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+            <scope>provided</scope>
         </dependency>
 
    <!-- https://mvnrepository.com/artifact/com.atlassian.templaterenderer/atlassian-template-renderer -->
@@ -65,7 +79,7 @@
             <groupId>com.atlassian.plugin</groupId>
             <artifactId>atlassian-spring-scanner-annotation</artifactId>
             <version>${atlassian.spring.scanner.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -192,3 +206,4 @@
         </plugins>
     </build>
 </project>
+
