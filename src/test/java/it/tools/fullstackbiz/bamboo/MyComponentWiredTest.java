@@ -1,10 +1,12 @@
-package it.tools.fullstack.bamboo;
+package it.tools.fullstackbiz.bamboo;
 
 import com.atlassian.plugins.osgi.test.AtlassianPluginsTestRunner;
 import com.atlassian.sal.api.ApplicationProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import tools.fullstack.bamboo.api.MyPluginComponent;
+import tools.fullstackbiz.bamboo.api.MyPluginComponent;
+
+import static junit.framework.Assert.assertEquals;
 
 @RunWith(AtlassianPluginsTestRunner.class)
 public class MyComponentWiredTest {

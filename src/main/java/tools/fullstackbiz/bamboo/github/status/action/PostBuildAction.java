@@ -6,6 +6,7 @@ import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.StageExecution;
 import com.atlassian.bamboo.chains.plugins.PostChainAction;
 import com.atlassian.bamboo.plan.PlanManager;
+import com.atlassian.bamboo.plan.cache.ImmutableChain;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.github.GHCommitState;
 import tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration;
@@ -18,7 +19,7 @@ public class PostBuildAction extends AbstractGitHubStatusAction implements PostC
     }
 
     @Override
-    public void execute(@NotNull Chain chain, @NotNull ChainResultsSummary chainResultsSummary, @NotNull ChainExecution chainExecution) throws Exception {
+    public void execute(@NotNull ImmutableChain chain, @NotNull ChainResultsSummary chainResultsSummary, @NotNull ChainExecution chainExecution) throws InterruptedException, Exception {
         GithubStatusBuildConfiguration config = GithubStatusBuildConfiguration.from(chain.getBuildDefinition().getCustomConfiguration());
 
         chainExecution.getStages()

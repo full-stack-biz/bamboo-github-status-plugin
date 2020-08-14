@@ -5,6 +5,7 @@ import com.atlassian.bamboo.chains.ChainExecution;
 import com.atlassian.bamboo.chains.StageExecution;
 import com.atlassian.bamboo.chains.plugins.PreChainAction;
 import com.atlassian.bamboo.plan.PlanManager;
+import com.atlassian.bamboo.plan.cache.ImmutableChain;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.github.GHCommitState;
 import tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration;
@@ -16,7 +17,7 @@ public class PreBuildAction extends AbstractGitHubStatusAction implements PreCha
     }
 
     @Override
-    public void execute(@NotNull Chain chain, @NotNull ChainExecution chainExecution) throws Exception {
+    public void execute(@NotNull ImmutableChain chain, @NotNull ChainExecution chainExecution) throws InterruptedException, Exception {
         GithubStatusBuildConfiguration config = GithubStatusBuildConfiguration.from(chain.getBuildDefinition().getCustomConfiguration());
 
         chainExecution.getStages()
