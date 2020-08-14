@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class ExcludedStages extends HashSet<String> {
     public ExcludedStages(String excludedStages) {
         super();
-        StringUtils.commaDelimitedListToSet(excludedStages).forEach(e -> add((String)e));
+        StringUtils.commaDelimitedListToSet(excludedStages).forEach(e -> add((String) e));
     }
 
     @Override

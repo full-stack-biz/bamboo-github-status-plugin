@@ -21,6 +21,16 @@ public class GitHubStatusPostStage extends AbstractGitHubStatusAction implements
         super(planManager, gitHubService);
     }
 
+    private static GHCommitState statusOf(StageExecution stageExecution) {
+        if (stageExecution.isSuccessful()) {
+            return GHCommitState.SUCCESS;
+        } else if (stageExecution.getBuilds().stream().anyMatch(e -> e.getBuildState() == BuildState.UNKNOWN)) {
+            return GHCommitState.ERROR;
+        } else {
+            return GHCommitState.FAILURE;
+        }
+    }
+
     @Override
     public void execute(@NotNull ChainResultsSummary chainResultsSummary,
                         @NotNull ChainStageResult chainStageResult,
@@ -47,15 +57,5 @@ public class GitHubStatusPostStage extends AbstractGitHubStatusAction implements
         description = description.concat(String.format("Execution time: %d:%02d", minutes, seconds));
 
         pushUpdate(stageExecution, statusOf(stageExecution), description);
-    }
-
-    private static GHCommitState statusOf(StageExecution stageExecution) {
-        if (stageExecution.isSuccessful()) {
-            return GHCommitState.SUCCESS;
-        } else if (stageExecution.getBuilds().stream().anyMatch(e -> e.getBuildState() == BuildState.UNKNOWN)) {
-            return GHCommitState.ERROR;
-        } else {
-            return GHCommitState.FAILURE;
-        }
     }
 }

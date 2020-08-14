@@ -1,8 +1,8 @@
 package tools.fullstackbiz.bamboo.github.status.build.config;
 
 public class Repository {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
     private boolean enabled;
 
     public Repository(int id, String name) {
@@ -19,9 +19,13 @@ public class Repository {
         return this.name;
     }
 
-    public boolean getEnabled() { return this.enabled; }
+    public boolean getEnabled() {
+        return this.enabled;
+    }
 
-    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     @Override
     public String toString() {

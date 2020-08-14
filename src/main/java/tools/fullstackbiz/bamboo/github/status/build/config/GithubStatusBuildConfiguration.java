@@ -16,20 +16,6 @@ public class GithubStatusBuildConfiguration extends BuildConfiguration {
     public static final String REPOSITORIES_KEY = CONFIG_PREFIX + "repositories";
     public static final String STAGES_EXCLUDED_KEY = CONFIG_PREFIX + "stages.excluded";
 
-    public ExcludedStages getExcludedStages() {
-        return new ExcludedStages(getString(STAGES_EXCLUDED_KEY));
-    }
-
-    public LinkedList<Repository> getRepositories(ImmutablePlan plan) {
-        LinkedList<Repository> repositories = new LinkedList<>();
-        int i = 0;
-        for (PlanRepositoryDefinition r : getPlanRepositories(plan)) {
-            repositories.add(new Repository(i, r.getName()));
-            i++;
-        }
-        return repositories;
-    }
-
     public static GithubStatusBuildConfiguration from(BuildConfiguration config) {
         GithubStatusBuildConfiguration c = new GithubStatusBuildConfiguration();
         c.addConfiguration(config);
@@ -47,6 +33,20 @@ public class GithubStatusBuildConfiguration extends BuildConfiguration {
                 .stream()
                 .filter(e -> (e.asLegacyData().getRepository() instanceof GitHubRepository || e.asLegacyData().getRepository() instanceof GitRepository))
                 .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public ExcludedStages getExcludedStages() {
+        return new ExcludedStages(getString(STAGES_EXCLUDED_KEY));
+    }
+
+    public LinkedList<Repository> getRepositories(ImmutablePlan plan) {
+        LinkedList<Repository> repositories = new LinkedList<>();
+        int i = 0;
+        for (PlanRepositoryDefinition r : getPlanRepositories(plan)) {
+            repositories.add(new Repository(i, r.getName()));
+            i++;
+        }
+        return repositories;
     }
 
     public boolean isRepositoryEnabled(PlanRepositoryDefinition repoToCheck) {

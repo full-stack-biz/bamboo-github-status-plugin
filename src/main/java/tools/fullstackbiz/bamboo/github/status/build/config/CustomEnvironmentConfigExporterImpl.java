@@ -22,12 +22,6 @@ import static tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusB
 public class CustomEnvironmentConfigExporterImpl implements CustomEnvironmentConfigPluginExporter {
     private static final Logger log = LoggerFactory.getLogger(GithubStatusBuildConfiguration.class);
 
-    private interface YamlTags {
-        String YAML_ROOT = "githubstatus";
-        String REPOSITORIES = "repositories";
-        String STAGES_EXCLUDED = "stages-excluded";
-    }
-
     @NotNull
     @Override
     public EnvironmentPluginConfiguration toSpecsEntity(@NotNull Map<String, String> map) {
@@ -68,5 +62,11 @@ public class CustomEnvironmentConfigExporterImpl implements CustomEnvironmentCon
 
     private String parseEnabledRepos(StringNode position) {
         return String.format("%s.id_%s", REPOSITORIES_KEY, position.get());
+    }
+
+    private interface YamlTags {
+        String YAML_ROOT = "githubstatus";
+        String REPOSITORIES = "repositories";
+        String STAGES_EXCLUDED = "stages-excluded";
     }
 }

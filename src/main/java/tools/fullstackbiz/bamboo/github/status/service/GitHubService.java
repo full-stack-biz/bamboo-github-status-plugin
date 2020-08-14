@@ -26,15 +26,14 @@ import java.net.URL;
 @Named("gitHubService")
 public class GitHubService implements GithubServiceInterface {
     private static final Logger log = LoggerFactory.getLogger(GitHubService.class);
-    private BambooUrl bambooUrl;
-    private final EncryptionService encryptionService;
-
     public final String gitHubEndpoint =
             new SystemProperty(
                     false,
                     "atlassian.bamboo.github.api.base.url",
                     "ATLASSIAN_BAMBOO_GITHUB_API_BASE_URL"
             ).getValue("https://api.github.com");
+    private final EncryptionService encryptionService;
+    private final BambooUrl bambooUrl;
 
     @Autowired
     public GitHubService(@ComponentImport AdministrationConfigurationAccessor adminConfigAccessor, @ComponentImport EncryptionService encryptionService) {

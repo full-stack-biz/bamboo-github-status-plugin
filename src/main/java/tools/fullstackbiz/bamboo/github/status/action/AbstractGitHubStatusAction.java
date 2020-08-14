@@ -24,7 +24,7 @@ import java.net.URL;
 abstract class AbstractGitHubStatusAction {
     private static final Logger log = LoggerFactory.getLogger(AbstractGitHubStatusAction.class);
     private final PlanManager planManager;
-    private GithubServiceInterface gitHubService;
+    private final GithubServiceInterface gitHubService;
 
     AbstractGitHubStatusAction(PlanManager planManager, GithubServiceInterface gitHubService) {
         this.planManager = planManager;

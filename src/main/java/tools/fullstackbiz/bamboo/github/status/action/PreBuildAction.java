@@ -16,14 +16,14 @@ public class PreBuildAction extends AbstractGitHubStatusAction implements PreCha
     }
 
     @Override
-    public void execute(@NotNull Chain chain, @NotNull ChainExecution chainExecution) throws InterruptedException, Exception {
+    public void execute(@NotNull Chain chain, @NotNull ChainExecution chainExecution) throws Exception {
         GithubStatusBuildConfiguration config = GithubStatusBuildConfiguration.from(chain.getBuildDefinition().getCustomConfiguration());
 
         chainExecution.getStages()
                 .stream()
                 .filter((StageExecution stageExecution) -> !config.getExcludedStages().contains(stageExecution.getName()))
                 .forEach((StageExecution stageExecution) -> {
-            pushUpdate(stageExecution, GHCommitState.PENDING);
-        });
+                    pushUpdate(stageExecution, GHCommitState.PENDING);
+                });
     }
 }

@@ -1,6 +1,5 @@
 package tools.fullstackbiz.bamboo.api;
 
-public interface MyPluginComponent
-{
+public interface MyPluginComponent {
     String getName();
 }

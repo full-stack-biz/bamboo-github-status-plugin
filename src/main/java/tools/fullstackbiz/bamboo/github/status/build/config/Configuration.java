@@ -4,7 +4,6 @@ import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.plan.cache.ImmutablePlan;
 import com.atlassian.bamboo.plan.configuration.MiscellaneousPlanConfigurationPlugin;
-import com.atlassian.bamboo.specs.api.exceptions.PropertiesValidationException;
 import com.atlassian.bamboo.template.TemplateRenderer;
 import com.atlassian.bamboo.v2.build.BaseBuildConfigurationAwarePlugin;
 import com.atlassian.bamboo.v2.build.ImportExportAwarePlugin;
@@ -22,7 +21,11 @@ import static tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusB
 public class Configuration extends BaseBuildConfigurationAwarePlugin
         implements MiscellaneousPlanConfigurationPlugin, ImportExportAwarePlugin<Settings, GithubStatusSettings> {
 
-     private final TemplateRenderer templateRenderer;
+    private final TemplateRenderer templateRenderer;
+
+    public Configuration(@ComponentImport(value = "TemplateRenderer") TemplateRenderer templateRenderer) {
+        this.templateRenderer = templateRenderer;
+    }
 
     @NotNull
     @Override
@@ -43,10 +46,6 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
         specsProperties.validate();
         GithubStatusBuildConfiguration config = GithubStatusBuildConfiguration.from((BuildConfiguration) buildConfiguration);
         buildConfiguration.addConfiguration(config);
-    }
-
-    public Configuration(@ComponentImport(value = "TemplateRenderer") TemplateRenderer templateRenderer) {
-        this.templateRenderer = templateRenderer;
     }
 
     @Override
