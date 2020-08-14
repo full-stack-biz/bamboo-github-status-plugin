@@ -1,9 +1,9 @@
-package tools.fullstack.bamboo.impl;
+package tools.fullstackbiz.bamboo.impl;
 
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.ApplicationProperties;
-import tools.fullstack.bamboo.api.MyPluginComponent;
+import tools.fullstackbiz.bamboo.api.MyPluginComponent;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,7 +27,7 @@ public class MyPluginComponentImpl implements MyPluginComponent
         {
             return "myComponent:" + applicationProperties.getDisplayName();
         }
-        
+
         return "myComponent";
     }
 }

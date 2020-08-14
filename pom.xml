@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>tools.fullstack.bamboo</groupId>
+    <groupId>tools.fullstackbiz.bamboo</groupId>
     <artifactId>github-status</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -109,7 +109,7 @@
             <version>${bamboo.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

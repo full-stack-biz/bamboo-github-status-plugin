@@ -1,4 +1,4 @@
-package tools.fullstack.bamboo.api;
+package tools.fullstackbiz.bamboo.api;
 
 public interface MyPluginComponent
 {
