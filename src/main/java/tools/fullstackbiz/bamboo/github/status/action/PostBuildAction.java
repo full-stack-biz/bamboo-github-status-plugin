@@ -1,6 +1,5 @@
 package tools.fullstackbiz.bamboo.github.status.action;
 
-import com.atlassian.bamboo.chains.Chain;
 import com.atlassian.bamboo.chains.ChainExecution;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.chains.StageExecution;
