@@ -18,7 +18,7 @@
         <resource type="download" name="github-status.js" location="/js/github-status.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>github-status</context>
+        <context>github.status</context>
     </web-resource>
 
     <preChainAction key="tools.fullstackbiz.webhooks.listeners.chain.pre"
@@ -27,10 +27,10 @@
                      class="tools.fullstackbiz.bamboo.github.status.action.PostBuildAction"/>
 
     <!--    <preStageAction key="tools.fullstackbiz.github-status.listeners.pre" class="tools.fullstackbiz.bamboo.github.status.action.GitHubStatusPreStage" />-->
-    <postStageAction key="tools.fullstackbiz.github-status.listeners.stage.post"
+    <postStageAction key="tools.fullstackbiz.github.status.listeners.stage.post"
                      class="tools.fullstackbiz.bamboo.github.status.action.GitHubStatusPostStage"/>
 
-    <additionalBuildConfigurationPlugin key="tools.fullstackbiz.github-status.config.plan"
+    <additionalBuildConfigurationPlugin key="tools.fullstackbiz.github.status.config.plan"
                                         class="tools.fullstackbiz.bamboo.github.status.build.config.Configuration">
         <resource type="freemarker" name="edit" location="templates/tools/fullstackbiz/github-status/edit.ftl"/>
     </additionalBuildConfigurationPlugin>
