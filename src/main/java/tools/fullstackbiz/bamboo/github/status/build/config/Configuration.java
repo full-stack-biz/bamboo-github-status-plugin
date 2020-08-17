@@ -5,6 +5,8 @@ import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.plan.cache.ImmutablePlan;
 import com.atlassian.bamboo.plan.configuration.MiscellaneousPlanConfigurationPlugin;
 import com.atlassian.bamboo.specs.api.exceptions.PropertiesValidationException;
+import com.atlassian.bamboo.specs.api.validators.common.ValidationContext;
+import com.atlassian.bamboo.specs.yaml.BambooYamlParserUtils;
 import com.atlassian.bamboo.specs.yaml.MapNode;
 import com.atlassian.bamboo.specs.yaml.Node;
 import com.atlassian.bamboo.specs.yaml.StringNode;
@@ -15,18 +17,17 @@ import com.atlassian.bamboo.ww2.actions.build.admin.create.BuildConfiguration;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration.REPOSITORIES_KEY;
 
 public class Configuration extends BaseBuildConfigurationAwarePlugin
         implements MiscellaneousPlanConfigurationPlugin, ImportExportAwarePlugin<Settings, GithubStatusSettings> {
+    private static final String YAML_KEY = "ghstatus";
     private static final Logger log = LoggerFactory.getLogger(GithubStatusBuildConfiguration.class);
 
     private final TemplateRenderer templateRenderer;
@@ -98,6 +99,14 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
             }
         }
         return null;
+    }
+
+    @Nullable
+    @Override
+    public Node toYaml(@NotNull GithubStatusSettings settings) {
+        final Map<String, String> result = new HashMap<>();
+        result.put(YAML_KEY, settings.toString());
+        return BambooYamlParserUtils.asNode(result, ValidationContext.of(YAML_KEY));
     }
 
     private interface YamlTags {

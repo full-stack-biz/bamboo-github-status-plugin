@@ -1,6 +1,5 @@
 package tools.fullstackbiz.bamboo.github.status.service;
 
-import com.atlassian.bamboo.repository.Repository;
 import com.atlassian.bamboo.v2.build.repository.RepositoryV2;
 import org.kohsuke.github.GHCommitState;
 

@@ -30,7 +30,7 @@
     <postStageAction key="tools.fullstackbiz.github.status.listeners.stage.post"
                      class="tools.fullstackbiz.bamboo.github.status.action.GitHubStatusPostStage"/>
 
-    <additionalBuildConfigurationPlugin key="tools.fullstackbiz.github.status.config.plan"
+    <additionalBuildConfigurationPlugin key="tools.fullstackbiz.github.status.config"
                                         class="tools.fullstackbiz.bamboo.github.status.build.config.Configuration">
         <resource type="freemarker" name="edit" location="templates/tools/fullstackbiz/github-status/edit.ftl"/>
     </additionalBuildConfigurationPlugin>
