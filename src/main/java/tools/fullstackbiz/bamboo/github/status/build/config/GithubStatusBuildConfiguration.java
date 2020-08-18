@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GithubStatusBuildConfiguration extends BuildConfiguration {
-    static final String CONFIG_PREFIX = "custom.bamboo.github.status.";
+    static final String CONFIG_PREFIX = "custom.tools.fullstackbiz.bamboo.github.status.";
     public static final String REPOSITORIES_KEY = CONFIG_PREFIX + "repositories";
     public static final String STAGES_EXCLUDED_KEY = CONFIG_PREFIX + "stages.excluded";
 
