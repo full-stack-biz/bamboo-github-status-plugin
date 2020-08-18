@@ -16,6 +16,7 @@ import com.atlassian.bamboo.utils.error.ErrorCollection;
 import com.atlassian.bamboo.utils.error.SimpleErrorCollection;
 import com.atlassian.bamboo.v2.build.BaseBuildConfigurationAwarePlugin;
 import com.atlassian.bamboo.v2.build.ImportExportAwarePlugin;
+import com.atlassian.bamboo.vcs.configuration.PlanRepositoryDefinition;
 import com.atlassian.bamboo.ww2.actions.build.admin.create.BuildConfiguration;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.apache.commons.configuration.HierarchicalConfiguration;
@@ -23,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration.REPOSITORIES_KEY;
 import static tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration.STAGES_EXCLUDED_KEY;
@@ -45,11 +47,14 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
     @NotNull
     @Override
     public Settings toSpecsEntity(HierarchicalConfiguration buildConfiguration) {
-        GithubStatusBuildConfiguration config = GithubStatusBuildConfiguration.from((BuildConfiguration) buildConfiguration);
-        ImmutablePlan  immutablePlan = null;
-        //buildConfiguration.getString(OWNER_OF_PLAN)
-//        bamboo.github.status
-        return new Settings((LinkedList<Repository>) buildConfiguration.getProperty("github.status"));
+        LinkedList<Repository> repositories = new LinkedList<>();
+        for (Iterator it = buildConfiguration.getKeys(REPOSITORIES_KEY); it.hasNext(); ) {
+            String key = (String) it.next();
+            Repository repo = new Repository(Integer.parseInt(key.replace(REPOSITORIES_KEY + ".id_", "")), key.replace(REPOSITORIES_KEY + ".", ""));
+            repo.setEnabled(buildConfiguration.getBoolean(key));
+            repositories.add(repo);
+        }
+        return new Settings(repositories);
     }
 
     @Override
@@ -124,13 +129,20 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
     @Nullable
     @Override
     public Node toYaml(@NotNull GithubStatusSettings settings) {
-        final Map<String, String> result = new HashMap<>();
-        result.put(REPOSITORIES_KEY, settings.toString());
-        return BambooYamlParserUtils.asNode(result, ValidationContext.of(REPOSITORIES_KEY));
+        final Map<String, Object> config = new LinkedHashMap<>();
+        config.put(YamlTags.REPOSITORIES, settings.repositories.stream()
+                .collect(Collectors.toMap(
+                        Repository::getName,
+                        Repository::getEnabled)
+                ));
+        final Map<String, Object> result = new LinkedHashMap<>();
+        result.put(YamlTags.YAML_ROOT, config);
+//        result.put(YamlTags.STAGES_EXCLUDED, config);
+        return BambooYamlParserUtils.asNode(result, ValidationContext.of(YamlTags.YAML_ROOT));
     }
 
     private interface YamlTags {
-        String YAML_ROOT = "githubstatus";
+        String YAML_ROOT = "github-status";
         String REPOSITORIES = "repositories";
         String STAGES_EXCLUDED = "stages-excluded";
     }
