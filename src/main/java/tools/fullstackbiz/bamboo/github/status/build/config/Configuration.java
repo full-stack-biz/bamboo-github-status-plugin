@@ -110,17 +110,20 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
     @Override
     public Settings fromYaml(@NotNull Node node) throws PropertiesValidationException {
         if (node instanceof MapNode) {
-            GithubStatusBuildConfiguration c = new GithubStatusBuildConfiguration();
+            LinkedList<Repository> repositories = new LinkedList<>();
             MapNode mapNode = (MapNode) node;
             if (mapNode.getOptionalNode(YamlTags.YAML_ROOT).isPresent()) {
-                Optional<MapNode> yamlConfig = mapNode.getOptionalMap(YamlTags.YAML_ROOT);
-                yamlConfig.ifPresent(root -> root.getOptionalList(YamlTags.REPOSITORIES, MapNode.class)
-                        .ifPresent(list -> list.asListOf(StringNode.class)
-                                .stream()
-                                .map(this::parseEnabledRepos)
-                                .forEach(prop -> c.setProperty(prop, true))));
-
-                return new Settings();
+                final MapNode yamlConfig = mapNode.getOptionalMap(YamlTags.YAML_ROOT).orElse(null);
+                if(yamlConfig.getOptionalMap(YamlTags.REPOSITORIES).isPresent()) {
+                    final MapNode repoConfig = yamlConfig.getOptionalMap(YamlTags.REPOSITORIES).orElse(null);
+                    for (Iterator it = repoConfig.getProperties().iterator(); it.hasNext(); ) {
+                        String key = (String) it.next();
+                        Repository repo = new Repository(Integer.parseInt(key.replace("id_", "")), key);
+                        repo.setEnabled((boolean) repoConfig.getNode(key).value);
+                        repositories.add(repo);
+                    }
+                }
+                return new Settings(repositories);
             }
         }
         return null;
