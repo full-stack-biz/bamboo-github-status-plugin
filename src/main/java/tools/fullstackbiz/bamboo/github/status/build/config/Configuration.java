@@ -119,7 +119,7 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
                     for (Iterator it = repoConfig.getProperties().iterator(); it.hasNext(); ) {
                         String key = (String) it.next();
                         Repository repo = new Repository(Integer.parseInt(key.replace("id_", "")), key);
-                        repo.setEnabled((boolean) repoConfig.getNode(key).value);
+                        repo.setEnabled(Boolean.parseBoolean(repoConfig.getNode(key).toString()));
                         repositories.add(repo);
                     }
                 }
