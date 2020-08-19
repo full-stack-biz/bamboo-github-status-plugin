@@ -1,4 +1,4 @@
-package tools.fullstackbiz.bamboo.github.status.action;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action;
 
 import com.atlassian.bamboo.chains.ChainExecution;
 import com.atlassian.bamboo.chains.StageExecution;
@@ -13,9 +13,9 @@ import com.atlassian.bamboo.vcs.configuration.PlanRepositoryDefinition;
 import org.kohsuke.github.GHCommitState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration;
-import tools.fullstackbiz.bamboo.github.status.service.GitHubService;
-import tools.fullstackbiz.bamboo.github.status.service.GithubServiceInterface;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config.GithubStatusBuildConfiguration;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.service.GitHubService;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.service.GithubServiceInterface;
 
 import java.net.MalformedURLException;
 import java.net.URL;

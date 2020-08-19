@@ -1,10 +1,10 @@
-package tools.fullstackbiz.bamboo.github.status.build.config;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config;
 
 import com.atlassian.bamboo.specs.api.builders.plan.configuration.PluginConfiguration;
 
 import java.util.LinkedList;
 
-public class Settings extends PluginConfiguration<GithubStatusSettings> {
+public class Settings extends PluginConfiguration<GithubStatusProperties> {
 
     private LinkedList<Repository> repositories;
 
@@ -22,8 +22,8 @@ public class Settings extends PluginConfiguration<GithubStatusSettings> {
     }
 
     @Override
-    protected GithubStatusSettings build() {
-        return new GithubStatusSettings(repositories);
+    protected GithubStatusProperties build() {
+        return new GithubStatusProperties(repositories);
     }
 
 }

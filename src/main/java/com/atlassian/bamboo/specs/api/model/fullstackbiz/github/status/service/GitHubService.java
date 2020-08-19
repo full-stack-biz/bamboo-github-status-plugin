@@ -1,4 +1,4 @@
-package tools.fullstackbiz.bamboo.github.status.service;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.service;
 
 import com.atlassian.bamboo.configuration.AdministrationConfigurationAccessor;
 import com.atlassian.bamboo.crypto.instance.SecretEncryptionService;

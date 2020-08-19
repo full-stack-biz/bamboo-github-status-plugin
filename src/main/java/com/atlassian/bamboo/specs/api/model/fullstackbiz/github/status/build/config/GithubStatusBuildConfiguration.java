@@ -1,4 +1,4 @@
-package tools.fullstackbiz.bamboo.github.status.build.config;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config;
 
 import com.atlassian.bamboo.plan.PlanHelper;
 import com.atlassian.bamboo.plan.cache.ImmutablePlan;

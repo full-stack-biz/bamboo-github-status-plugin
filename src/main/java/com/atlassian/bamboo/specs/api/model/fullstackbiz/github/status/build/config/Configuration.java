@@ -1,7 +1,6 @@
-package tools.fullstackbiz.bamboo.github.status.build.config;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config;
 
 import com.atlassian.bamboo.plan.Plan;
-import com.atlassian.bamboo.plan.TopLevelPlan;
 import com.atlassian.bamboo.plan.cache.ImmutablePlan;
 import com.atlassian.bamboo.plan.cache.ImmutableTopLevelPlan;
 import com.atlassian.bamboo.plan.configuration.MiscellaneousPlanConfigurationPlugin;
@@ -10,13 +9,11 @@ import com.atlassian.bamboo.specs.api.validators.common.ValidationContext;
 import com.atlassian.bamboo.specs.yaml.BambooYamlParserUtils;
 import com.atlassian.bamboo.specs.yaml.MapNode;
 import com.atlassian.bamboo.specs.yaml.Node;
-import com.atlassian.bamboo.specs.yaml.StringNode;
 import com.atlassian.bamboo.template.TemplateRenderer;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
 import com.atlassian.bamboo.utils.error.SimpleErrorCollection;
 import com.atlassian.bamboo.v2.build.BaseBuildConfigurationAwarePlugin;
 import com.atlassian.bamboo.v2.build.ImportExportAwarePlugin;
-import com.atlassian.bamboo.vcs.configuration.PlanRepositoryDefinition;
 import com.atlassian.bamboo.ww2.actions.build.admin.create.BuildConfiguration;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.apache.commons.configuration.HierarchicalConfiguration;
@@ -26,11 +23,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration.REPOSITORIES_KEY;
-import static tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration.STAGES_EXCLUDED_KEY;
+import static com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config.GithubStatusBuildConfiguration.REPOSITORIES_KEY;
+import static com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config.GithubStatusBuildConfiguration.STAGES_EXCLUDED_KEY;
 
 public class Configuration extends BaseBuildConfigurationAwarePlugin
-        implements MiscellaneousPlanConfigurationPlugin, ImportExportAwarePlugin<Settings, GithubStatusSettings> {
+        implements MiscellaneousPlanConfigurationPlugin, ImportExportAwarePlugin<Settings, GithubStatusProperties> {
 
     private final TemplateRenderer templateRenderer;
 
@@ -58,7 +55,7 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
     }
 
     @Override
-    public void addToBuildConfiguration(GithubStatusSettings specsProperties,
+    public void addToBuildConfiguration(GithubStatusProperties specsProperties,
                                         @NotNull HierarchicalConfiguration buildConfiguration) {
         specsProperties.validate();
         final int[] i = {-1};
@@ -131,7 +128,7 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
 
     @Nullable
     @Override
-    public Node toYaml(@NotNull GithubStatusSettings settings) {
+    public Node toYaml(@NotNull GithubStatusProperties settings) {
         final Map<String, Object> config = new LinkedHashMap<>();
         config.put(YamlTags.REPOSITORIES, settings.repositories.stream()
                 .collect(Collectors.toMap(
@@ -148,9 +145,5 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
         String YAML_ROOT = "github-status";
         String REPOSITORIES = "repositories";
         String STAGES_EXCLUDED = "stages-excluded";
-    }
-
-    private String parseEnabledRepos(StringNode position) {
-        return String.format("%s.id_%s", REPOSITORIES_KEY, position.get());
     }
 }

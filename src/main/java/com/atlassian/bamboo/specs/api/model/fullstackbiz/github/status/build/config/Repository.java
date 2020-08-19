@@ -1,4 +1,4 @@
-package tools.fullstackbiz.bamboo.github.status.build.config;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config;
 
 public class Repository {
     private final int id;

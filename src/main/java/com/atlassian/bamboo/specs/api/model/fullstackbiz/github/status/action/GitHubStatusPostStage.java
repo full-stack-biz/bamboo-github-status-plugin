@@ -1,4 +1,4 @@
-package tools.fullstackbiz.bamboo.github.status.action;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action;
 
 import com.atlassian.bamboo.builder.BuildState;
 import com.atlassian.bamboo.chains.BuildExecution;
@@ -11,7 +11,7 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.apache.commons.lang.ObjectUtils;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.github.GHCommitState;
-import tools.fullstackbiz.bamboo.github.status.service.GithubServiceInterface;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.service.GithubServiceInterface;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -1,15 +1,14 @@
-package tools.fullstackbiz.bamboo.github.status.action;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action;
 
-import com.atlassian.bamboo.chains.Chain;
 import com.atlassian.bamboo.chains.ChainExecution;
 import com.atlassian.bamboo.chains.StageExecution;
 import com.atlassian.bamboo.chains.plugins.PreChainAction;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.plan.cache.ImmutableChain;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config.GithubStatusBuildConfiguration;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.service.GithubServiceInterface;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.github.GHCommitState;
-import tools.fullstackbiz.bamboo.github.status.build.config.GithubStatusBuildConfiguration;
-import tools.fullstackbiz.bamboo.github.status.service.GithubServiceInterface;
 
 public class PreBuildAction extends AbstractGitHubStatusAction implements PreChainAction {
     PreBuildAction(PlanManager planManager, GithubServiceInterface gitHubService) {

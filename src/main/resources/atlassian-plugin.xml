@@ -22,16 +22,16 @@
     </web-resource>
 
     <preChainAction key="tools.fullstackbiz.webhooks.listeners.chain.pre"
-                    class="tools.fullstackbiz.bamboo.github.status.action.PreBuildAction"/>
+                    class="com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action.PreBuildAction"/>
     <postChainAction key="tools.fullstackbiz.webhooks.listeners.chain.post"
-                     class="tools.fullstackbiz.bamboo.github.status.action.PostBuildAction"/>
+                     class="com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action.PostBuildAction"/>
 
-    <!--    <preStageAction key="tools.fullstackbiz.github-status.listeners.pre" class="tools.fullstackbiz.bamboo.github.status.action.GitHubStatusPreStage" />-->
+    <!--    <preStageAction key="tools.fullstackbiz.github-status.listeners.pre" class="GitHubStatusPreStage" />-->
     <postStageAction key="tools.fullstackbiz.github.status.listeners.stage.post"
-                     class="tools.fullstackbiz.bamboo.github.status.action.GitHubStatusPostStage"/>
+                     class="com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action.GitHubStatusPostStage"/>
 
     <additionalBuildConfigurationPlugin key="status"
-                                        class="tools.fullstackbiz.bamboo.github.status.build.config.Configuration">
+                                        class="com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config.Configuration">
         <resource type="freemarker" name="edit" location="templates/tools/fullstackbiz/github-status/edit.ftl"/>
     </additionalBuildConfigurationPlugin>
 </atlassian-plugin>

@@ -1,11 +1,11 @@
-package tools.fullstackbiz.bamboo.github.status.action;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action;
 
 import com.atlassian.bamboo.chains.StageExecution;
 import com.atlassian.bamboo.chains.plugins.PreStageAction;
 import com.atlassian.bamboo.plan.PlanManager;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.github.GHCommitState;
-import tools.fullstackbiz.bamboo.github.status.service.GithubServiceInterface;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.service.GithubServiceInterface;
 
 public class GitHubStatusPreStage extends AbstractGitHubStatusAction implements PreStageAction {
     GitHubStatusPreStage(PlanManager planManager, GithubServiceInterface gitHubService) {
