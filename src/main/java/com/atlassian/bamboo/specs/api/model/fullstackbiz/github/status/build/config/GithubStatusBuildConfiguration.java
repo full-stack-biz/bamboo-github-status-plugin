@@ -43,7 +43,7 @@ public class GithubStatusBuildConfiguration extends BuildConfiguration {
         LinkedList<Repository> repositories = new LinkedList<>();
         int i = 0;
         for (PlanRepositoryDefinition r : getPlanRepositories(plan)) {
-            repositories.add(new Repository(i, r.getName()));
+            repositories.add(new Repository(i, r.getName(), isRepositoryEnabled(r)));
             i++;
         }
         return repositories;

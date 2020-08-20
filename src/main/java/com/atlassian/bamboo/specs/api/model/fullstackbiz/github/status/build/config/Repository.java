@@ -5,6 +5,12 @@ public class Repository {
     private final String name;
     private boolean enabled;
 
+    public Repository(int id, String name, Boolean enabled) {
+        this.id = id;
+        this.name = name;
+        this.enabled = enabled;
+    }
+
     public Repository(int id, String name) {
         this.id = id;
         this.name = name;

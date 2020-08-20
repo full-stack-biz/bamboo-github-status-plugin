@@ -9,7 +9,7 @@ public class Settings extends PluginConfiguration<GithubStatusProperties> {
     private LinkedList<Repository> repositories;
 
     public Settings() {
-
+        this.repositories = new LinkedList<Repository>();
     }
 
     public Settings(LinkedList<Repository> repositories) {

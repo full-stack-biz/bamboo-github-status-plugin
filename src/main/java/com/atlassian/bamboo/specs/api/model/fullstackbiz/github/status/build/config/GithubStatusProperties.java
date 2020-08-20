@@ -14,6 +14,7 @@ public class GithubStatusProperties implements PluginConfigurationProperties {
     LinkedList<Repository> repositories;
 
     private GithubStatusProperties() {
+        this.repositories = new LinkedList<Repository>();
     }
 
     public GithubStatusProperties(LinkedList<Repository> repositories) {

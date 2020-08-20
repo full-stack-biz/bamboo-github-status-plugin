@@ -38,8 +38,14 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
     @NotNull
     @Override
     public Set<String> getConfigurationKeys() {
-        return new HashSet<>(Arrays.asList(REPOSITORIES_KEY, STAGES_EXCLUDED_KEY));
+        return Collections.singleton(REPOSITORIES_KEY);
     }
+
+//    @NotNull
+//    @Override
+//    public Set<String> getConfigurationKeys() {
+//        return new HashSet<>(Arrays.asList(REPOSITORIES_KEY, STAGES_EXCLUDED_KEY));
+//    }
 
     @NotNull
     @Override
@@ -47,9 +53,11 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
         LinkedList<Repository> repositories = new LinkedList<>();
         for (Iterator it = buildConfiguration.getKeys(REPOSITORIES_KEY); it.hasNext(); ) {
             String key = (String) it.next();
-            Repository repo = new Repository(Integer.parseInt(key.replace(REPOSITORIES_KEY + ".id_", "")), key.replace(REPOSITORIES_KEY + ".", ""));
-            repo.setEnabled(buildConfiguration.getBoolean(key));
-            repositories.add(repo);
+            repositories.add(new Repository(
+                    Integer.parseInt(key.replace(REPOSITORIES_KEY + ".id_", "")),
+                    key.replace(REPOSITORIES_KEY + ".", ""),
+                    buildConfiguration.getBoolean(key)
+            ));
         }
         return new Settings(repositories);
     }
@@ -115,9 +123,8 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
                     final MapNode repoConfig = yamlConfig.getOptionalMap(YamlTags.REPOSITORIES).orElse(null);
                     for (Iterator it = repoConfig.getProperties().iterator(); it.hasNext(); ) {
                         String key = (String) it.next();
-                        Repository repo = new Repository(Integer.parseInt(key.replace("id_", "")), key);
-                        repo.setEnabled(Boolean.parseBoolean(repoConfig.getNode(key).toString()));
-                        repositories.add(repo);
+                        repositories.add(new Repository(Integer.parseInt(key.replace("id_", "")),
+                                         key, Boolean.parseBoolean(repoConfig.getNode(key).toString())));
                     }
                 }
                 return new Settings(repositories);
