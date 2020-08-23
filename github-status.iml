@@ -5,12 +5,18 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="github-status" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/META-INF/spring/plugin-context.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
@@ -163,6 +169,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.1.1.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.jboss:jandex:2.0.5.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.fasterxml:classmate:1.3.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.4.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.hibernate:hibernate-c3p0:5.3.4.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.hibernate:hibernate-ehcache:5.3.4.Final" level="project" />
@@ -270,8 +277,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.velocity:atlassian-velocity:1.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.velocity:velocity:1.6.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.xml.bind:jaxb-api:2.2.11" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.annotation:javax.annotation-api:1.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.xml.bind:jaxb-core:2.2.11" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-collections4:4.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-lang:commons-lang:2.6" level="project" />
@@ -376,15 +381,15 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.atlassian.upm:upm-api:2.15" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.ws.rs:jsr311-api:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.2-atlassian-1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.bamboo:atlassian-bamboo-api:7.0.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.bamboo:atlassian-bamboo-api-agent-bootstrap:7.0.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.bamboo:atlassian-bamboo-api:7.1.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.bamboo:atlassian-bamboo-api-agent-bootstrap:7.1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.extras:atlassian-extras-api:3.3.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.config:atlassian-config:1.0.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.bamboo:bamboo-specs-api:7.0.3" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugins:atlassian-plugins-servlet:5.3.6-5f3966a7c" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.bamboo:bamboo-specs-api:7.1.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugins:atlassian-plugins-servlet:5.3.7-506c317e3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugins:atlassian-plugins-webfragment-api:5.0.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugins:atlassian-plugins-osgi:5.3.6-5f3966a7c" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugins:atlassian-plugins-osgi-events:5.3.6-5f3966a7c" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugins:atlassian-plugins-osgi:5.3.7-506c317e3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.plugins:atlassian-plugins-osgi-events:5.3.7-506c317e3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: biz.aQute.bnd:biz.aQute.bndlib:3.5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.felix:org.apache.felix.framework:5.6.12" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.github.lukehutch:fast-classpath-scanner:2.18.1" level="project" />
@@ -398,8 +403,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.bucket:atlassian-bucket:5.1.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.opensymphony.propertyset.providers:hibernate5:1.6.0-atlassian-8" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.event:atlassian-event:4.0.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.ant:ant:1.8.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.ant:ant-launcher:1.8.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.ant:ant:1.10.8" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.ant:ant-launcher:1.10.8" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-text:1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.guava:guava:26.0-jre" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.checkerframework:checker-qual:2.5.2" level="project" />
@@ -409,7 +414,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-configuration:commons-configuration:1.4-atlassian-1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-jxpath:commons-jxpath:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-beanutils:commons-beanutils:1.9.4" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.seraph:atlassian-seraph:4.0.3" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.atlassian.seraph:atlassian-seraph:4.0.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: opensymphony:osuser:1.0-20060106" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.acegisecurity:acegi-security:1.0.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: oro:oro:2.0.8" level="project" />

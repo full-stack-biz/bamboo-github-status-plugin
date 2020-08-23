@@ -1,4 +1,4 @@
-package tools.fullstackbiz.bamboo.github.status.build.config;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config;
 
 import com.atlassian.extras.common.org.springframework.util.StringUtils;
 
@@ -7,7 +7,7 @@ import java.util.HashSet;
 public class ExcludedStages extends HashSet<String> {
     public ExcludedStages(String excludedStages) {
         super();
-        StringUtils.commaDelimitedListToSet(excludedStages).forEach(e -> add((String)e));
+        StringUtils.commaDelimitedListToSet(excludedStages).forEach(e -> add((String) e));
     }
 
     @Override

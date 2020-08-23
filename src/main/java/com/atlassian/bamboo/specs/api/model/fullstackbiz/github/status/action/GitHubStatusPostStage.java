@@ -1,4 +1,4 @@
-package tools.fullstackbiz.bamboo.github.status.action;
+package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.action;
 
 import com.atlassian.bamboo.builder.BuildState;
 import com.atlassian.bamboo.chains.BuildExecution;
@@ -11,7 +11,7 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.apache.commons.lang.ObjectUtils;
 import org.jetbrains.annotations.NotNull;
 import org.kohsuke.github.GHCommitState;
-import tools.fullstackbiz.bamboo.github.status.service.GithubServiceInterface;
+import com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.service.GithubServiceInterface;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,6 +19,16 @@ import java.util.Collections;
 public class GitHubStatusPostStage extends AbstractGitHubStatusAction implements PostStageAction {
     GitHubStatusPostStage(@ComponentImport PlanManager planManager, GithubServiceInterface gitHubService) {
         super(planManager, gitHubService);
+    }
+
+    private static GHCommitState statusOf(StageExecution stageExecution) {
+        if (stageExecution.isSuccessful()) {
+            return GHCommitState.SUCCESS;
+        } else if (stageExecution.getBuilds().stream().anyMatch(e -> e.getBuildState() == BuildState.UNKNOWN)) {
+            return GHCommitState.ERROR;
+        } else {
+            return GHCommitState.FAILURE;
+        }
     }
 
     @Override
@@ -47,15 +57,5 @@ public class GitHubStatusPostStage extends AbstractGitHubStatusAction implements
         description = description.concat(String.format("Execution time: %d:%02d", minutes, seconds));
 
         pushUpdate(stageExecution, statusOf(stageExecution), description);
-    }
-
-    private static GHCommitState statusOf(StageExecution stageExecution) {
-        if (stageExecution.isSuccessful()) {
-            return GHCommitState.SUCCESS;
-        } else if (stageExecution.getBuilds().stream().anyMatch(e -> e.getBuildState() == BuildState.UNKNOWN)) {
-            return GHCommitState.ERROR;
-        } else {
-            return GHCommitState.FAILURE;
-        }
     }
 }
