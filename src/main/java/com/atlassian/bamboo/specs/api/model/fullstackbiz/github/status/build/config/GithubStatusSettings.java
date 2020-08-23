@@ -4,19 +4,19 @@ import com.atlassian.bamboo.specs.api.builders.plan.configuration.PluginConfigur
 
 import java.util.LinkedList;
 
-public class Settings extends PluginConfiguration<GithubStatusProperties> {
+public class GithubStatusSettings extends PluginConfiguration<GithubStatusProperties> {
 
     private LinkedList<Repository> repositories;
 
-    public Settings() {
+    public GithubStatusSettings() {
         this.repositories = new LinkedList<Repository>();
     }
 
-    public Settings(LinkedList<Repository> repositories) {
+    public GithubStatusSettings(LinkedList<Repository> repositories) {
         this.repositories = repositories;
     }
 
-    public Settings repositories(LinkedList<Repository> repositories) {
+    public GithubStatusSettings repositories(LinkedList<Repository> repositories) {
         this.repositories = repositories;
         return this;
     }

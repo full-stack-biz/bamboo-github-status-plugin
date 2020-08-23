@@ -9,6 +9,7 @@ import com.atlassian.bamboo.specs.api.validators.common.ValidationContext;
 import com.atlassian.bamboo.specs.yaml.BambooYamlParserUtils;
 import com.atlassian.bamboo.specs.yaml.MapNode;
 import com.atlassian.bamboo.specs.yaml.Node;
+import com.atlassian.bamboo.specs.yaml.StringNode;
 import com.atlassian.bamboo.template.TemplateRenderer;
 import com.atlassian.bamboo.utils.error.ErrorCollection;
 import com.atlassian.bamboo.utils.error.SimpleErrorCollection;
@@ -27,7 +28,7 @@ import static com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.bu
 import static com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config.GithubStatusBuildConfiguration.STAGES_EXCLUDED_KEY;
 
 public class Configuration extends BaseBuildConfigurationAwarePlugin
-        implements MiscellaneousPlanConfigurationPlugin, ImportExportAwarePlugin<Settings, GithubStatusProperties> {
+        implements MiscellaneousPlanConfigurationPlugin, ImportExportAwarePlugin<GithubStatusSettings, GithubStatusProperties> {
 
     private final TemplateRenderer templateRenderer;
 
@@ -49,7 +50,7 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
 
     @NotNull
     @Override
-    public Settings toSpecsEntity(HierarchicalConfiguration buildConfiguration) {
+    public GithubStatusSettings toSpecsEntity(HierarchicalConfiguration buildConfiguration) {
         LinkedList<Repository> repositories = new LinkedList<>();
         for (Iterator it = buildConfiguration.getKeys(REPOSITORIES_KEY); it.hasNext(); ) {
             String key = (String) it.next();
@@ -59,7 +60,7 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
                     buildConfiguration.getBoolean(key)
             ));
         }
-        return new Settings(repositories);
+        return new GithubStatusSettings(repositories);
     }
 
     @Override
@@ -113,7 +114,7 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
 
     @Nullable
     @Override
-    public Settings fromYaml(@NotNull Node node) throws PropertiesValidationException {
+    public GithubStatusSettings fromYaml(@NotNull Node node) throws PropertiesValidationException {
         if (node instanceof MapNode) {
             LinkedList<Repository> repositories = new LinkedList<>();
             MapNode mapNode = (MapNode) node;
@@ -124,10 +125,10 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
                     for (Iterator it = repoConfig.getProperties().iterator(); it.hasNext(); ) {
                         String key = (String) it.next();
                         repositories.add(new Repository(Integer.parseInt(key.replace("id_", "")),
-                                         key, Boolean.parseBoolean(repoConfig.getNode(key).toString())));
+                                         key, Boolean.parseBoolean(((StringNode) repoConfig.getNode(key)).get())));
                     }
                 }
-                return new Settings(repositories);
+                return new GithubStatusSettings(repositories);
             }
         }
         return null;
@@ -138,9 +139,7 @@ public class Configuration extends BaseBuildConfigurationAwarePlugin
     public Node toYaml(@NotNull GithubStatusProperties settings) {
         final Map<String, Object> config = new LinkedHashMap<>();
         config.put(YamlTags.REPOSITORIES, settings.repositories.stream()
-                .collect(Collectors.toMap(
-                        Repository::getName,
-                        Repository::getEnabled)
+                .collect(Collectors.toMap(Repository::getName, Repository::getEnabled)
                 ));
         final Map<String, Object> result = new LinkedHashMap<>();
         result.put(YamlTags.YAML_ROOT, config);
