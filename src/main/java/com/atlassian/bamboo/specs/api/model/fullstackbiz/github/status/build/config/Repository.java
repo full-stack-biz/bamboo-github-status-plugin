@@ -1,9 +1,11 @@
 package com.atlassian.bamboo.specs.api.model.fullstackbiz.github.status.build.config;
 
 public class Repository {
-    private final int id;
-    private final String name;
+    private int id;
+    private String name;
     private boolean enabled;
+
+    public Repository() {}
 
     public Repository(int id, String name, Boolean enabled) {
         this.id = id;
