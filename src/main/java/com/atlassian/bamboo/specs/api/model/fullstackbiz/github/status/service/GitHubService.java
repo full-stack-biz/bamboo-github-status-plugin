@@ -85,13 +85,13 @@ public class GitHubService implements GithubServiceInterface {
 
         log.info(String.format("Connecting to github ... username = %s, repositoryUrl = %s", username, repositoryUrl));
 
-        GitHub gitHub;
         try {
-            gitHub = GitHub.connectToEnterpriseWithOAuth(gitHubEndpoint, username, oauthAccessToken);
+            GitHub gitHub = GitHub.connectToEnterpriseWithOAuth(gitHubEndpoint, username, oauthAccessToken);
+            return gitHub.getRepository(repositoryUrl);
         } catch (HttpException ex) {
-            gitHub = GitHub.connectToEnterprise(gitHubEndpoint, username, oauthAccessToken);
+            GitHub gitHub = GitHub.connectToEnterprise(gitHubEndpoint, username, oauthAccessToken);
+            return gitHub.getRepository(repositoryUrl);
         }
-        return gitHub.getRepository(repositoryUrl);
     }
 
     private String getRelativePath(String url) throws MalformedURLException {
