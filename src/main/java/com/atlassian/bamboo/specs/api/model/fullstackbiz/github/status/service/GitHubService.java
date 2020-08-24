@@ -12,6 +12,7 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import org.kohsuke.github.GHCommitState;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
+import org.kohsuke.github.HttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +85,14 @@ public class GitHubService implements GithubServiceInterface {
 
         log.info(String.format("Connecting to github ... username = %s, repositoryUrl = %s", username, repositoryUrl));
 
-        GitHub gitHub = GitHub.connectToEnterpriseWithOAuth(gitHubEndpoint, username, oauthAccessToken);
-        return gitHub.getRepository(repositoryUrl);
+        try {
+            GitHub gitHub = GitHub.connectToEnterpriseWithOAuth(gitHubEndpoint, username, oauthAccessToken);
+            return gitHub.getRepository(repositoryUrl);
+        } catch (HttpException ex) {
+            GitHub gitHub = GitHub.connectToEnterprise(gitHubEndpoint, username, oauthAccessToken);
+            return gitHub.getRepository(repositoryUrl);
+        }
+
     }
 
     private String getRelativePath(String url) throws MalformedURLException {
